@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import styled from "styled-components";
+
+const Title = styled.h1`
+  color: ${(props) => {
+    return props.night ? "white" : "black";
+  }};
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => {
+    return props.night ? "black" : "white";
+  }};
+`;
 
 function App() {
+  const [night, setNight] = useState(false);
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    setNight((cur) => !cur);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper night={night}>
+      <Title night={night}>Hello</Title>
+      <button onClick={handleClick}>darkMode</button>
+    </Wrapper>
   );
 }
 
