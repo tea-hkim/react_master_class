@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Title = styled.h1`
-  color: ${(props) => {
-    return props.night ? "white" : "black";
-  }};
+  color: ${(props) => props.theme.textColor};
 `;
 
 const Wrapper = styled.div`
@@ -13,23 +11,13 @@ const Wrapper = styled.div`
   width: 100vw;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => {
-    return props.night ? "black" : "white";
-  }};
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
 
 function App() {
-  const [night, setNight] = useState(false);
-
-  const handleClick = (event) => {
-    event.preventDefault();
-    setNight((cur) => !cur);
-  };
-
   return (
-    <Wrapper night={night}>
-      <Title night={night}>Hello</Title>
-      <button onClick={handleClick}>darkMode</button>
+    <Wrapper>
+      <Title>Hello</Title>
     </Wrapper>
   );
 }
