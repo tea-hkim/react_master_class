@@ -13,3 +13,8 @@
     5. Pseudo selector
     6. Make dark mode with state and props
     7. Use "ThemeProvider"
+
+### 2. TypeScript
+
+    1. props type setting in object
+    2. props type setting in object optionaly
