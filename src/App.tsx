@@ -1,12 +1,13 @@
 import React from "react";
-import Circle from "./Circle";
+import Router from "./Router";
+import { GlobalStyle } from "./style/GlobalStyled";
 
 function App() {
   return (
-    <div>
-      <Circle bgColor="red" />
-      <Circle bgColor="blue" borderColor="black" />
-    </div>
+    <>
+      <GlobalStyle />
+      <Router />
+    </>
   );
 }
 

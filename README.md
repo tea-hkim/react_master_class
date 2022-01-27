@@ -18,3 +18,10 @@
 
     1. props type setting in object
     2. props type setting in object optionaly
+    3. Set state type
+    4. Set Form event type
+    5. Use "ThemeProvider" in TypeScript
+
+### 3. Crypto tracker
+
+    1. Setup Basic
