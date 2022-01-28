@@ -48,8 +48,8 @@ const Loading = styled.div`
 `;
 
 const CoinImage = styled.img`
-  height: 30px;
-  width: 30px;
+  height: 35px;
+  width: 35px;
   margin-right: 10px;
 `;
 
