@@ -25,3 +25,7 @@
 ### 3. Crypto tracker
 
     1. Setup Basic
+    2. Make Home Page
+    3. Make Detail Page
+    4. Use react-query
+    5. Make Chart (use apexchart)
