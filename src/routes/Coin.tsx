@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useQuery } from "react-query";
 import { Helmet } from "react-helmet";
 import {
@@ -13,7 +13,26 @@ import styled from "styled-components";
 import Chart from "./Chart";
 import Price from "./Price";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
+import { Container, Title, Header, Loading } from "../style/OutLineStyle";
 
+const HomeContainer = styled.div`
+  width: 100%;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: end;
+  text-transform: uppercase;
+  a {
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: white;
+    color: ${(props) => props.theme.textColor};
+  }
+`;
+const CoinImage = styled.img`
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
+`;
 const Tabs = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -23,22 +42,22 @@ const Tabs = styled.div`
 const Tab = styled.span<{ isActive: boolean }>`
   text-align: center;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => (props.isActive ? "#58B19F" : "white")};
   padding: 7px 0px;
   border-radius: 10px;
 
   a {
     display: block;
-    color: ${(props) =>
-      props.isActive ? props.theme.accentColor : props.theme.textColor};
+    color: ${(props) => (props.isActive ? "white" : props.theme.textColor)};
+    font-weight: ${(props) => (props.isActive ? "700" : null)};
   }
 `;
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: white;
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -56,25 +75,6 @@ const OverviewItem = styled.div`
 `;
 const Description = styled.p`
   margin: 20px 0px;
-`;
-const Container = styled.div`
-  padding: 0 20px;
-  max-width: 480px;
-  margin: 0 auto;
-`;
-const Header = styled.header`
-  height: 10vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const Title = styled.h1`
-  color: ${(props) => props.theme.accentColor};
-  font-size: 48px;
-`;
-const Loading = styled.div`
-  display: block;
-  text-align: center;
 `;
 
 interface RouteParams {
@@ -154,6 +154,7 @@ function Coin() {
     }
   );
   const loading = infoLoading || tickersLoading;
+
   return (
     <Container>
       <Helmet>
@@ -162,6 +163,12 @@ function Coin() {
         </title>
       </Helmet>
       <Header>
+        {infoData?.symbol ? (
+          <CoinImage
+            src={`https://cryptoicon-api.vercel.app/api/icon/${infoData.symbol.toLowerCase()}`}
+            alt="coin image"
+          />
+        ) : null}
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
@@ -170,6 +177,9 @@ function Coin() {
         <Loading>Loading...</Loading>
       ) : (
         <>
+          <HomeContainer>
+            <Link to="/"> &larr; home</Link>
+          </HomeContainer>
           <Overview>
             <OverviewItem>
               <span>Rank:</span>
