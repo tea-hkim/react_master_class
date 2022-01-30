@@ -24,7 +24,7 @@ const Coin = styled.li`
     a {
       color: ${(props) => props.theme.accentColor};
     }
-    transform: scale(1.02);
+    transform: scale(1.01);
   }
 `;
 const CoinImage = styled.img`

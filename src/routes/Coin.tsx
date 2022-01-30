@@ -25,7 +25,11 @@ const HomeContainer = styled.div`
     padding: 10px 20px;
     border-radius: 10px;
     background-color: white;
+    transition: color 0.2s ease-in;
     color: ${(props) => props.theme.textColor};
+    &:hover {
+      color: ${(props) => props.theme.accentColor};
+    }
   }
 `;
 const CoinImage = styled.img`
@@ -52,6 +56,9 @@ const Tab = styled.span<{ isActive: boolean }>`
     display: block;
     color: ${(props) => (props.isActive ? "white" : props.theme.textColor)};
     font-weight: ${(props) => (props.isActive ? "700" : null)};
+    &:hover {
+      color: ${(props) => props.theme.accentColor};
+    }
   }
 `;
 const Overview = styled.div`
@@ -103,7 +110,7 @@ interface InfoData {
   first_data_at: string;
   last_data_at: string;
 }
-interface PriceData {
+export interface PriceData {
   id: string;
   name: string;
   symbol: string;
@@ -154,7 +161,6 @@ function Coin() {
     }
   );
   const loading = infoLoading || tickersLoading;
-
   return (
     <Container>
       <Helmet>
@@ -215,7 +221,7 @@ function Coin() {
           </Tabs>
           <Switch>
             <Route path={`/:coinId/price`}>
-              <Price />
+              <Price coinId={coinId} />
             </Route>
             <Route path={`/:coinId/chart`}>
               <Chart coinId={coinId} />
