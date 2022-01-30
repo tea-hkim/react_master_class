@@ -26,17 +26,28 @@ function Chart({ coinId }: ChartProps) {
       refetchInterval: 5000,
     }
   );
-
+  const candleData = (data: IHistorical) => {
+    return {
+      x: data.time_close,
+      y: [
+        data.open.toFixed(2),
+        data.high.toFixed(2),
+        data.low.toFixed(2),
+        data.close.toFixed(2),
+      ],
+    };
+  };
   return (
     <div>
       {isLoading ? (
         "Chart Loading..."
       ) : (
         <ApexChart
-          type="line"
-          series={[{ name: "price", data: data?.map((price) => price.close) }]}
+          type="candlestick"
+          series={[
+            { name: "price", data: data?.map((price) => candleData(price)) },
+          ]}
           options={{
-            theme: { mode: "dark" },
             chart: {
               height: 300,
               width: 500,
@@ -44,29 +55,28 @@ function Chart({ coinId }: ChartProps) {
               background: "transparent",
             },
             grid: {
-              show: false,
+              show: true,
             },
             yaxis: {
               show: false,
             },
             xaxis: {
               type: "datetime",
-              labels: { show: false },
-              axisTicks: { show: false },
-              axisBorder: { show: false },
-              categories: data?.map((value) => value.time_close),
             },
-            fill: {
-              type: "gradient",
-              gradient: {
-                gradientToColors: ["green"],
-                stops: [50, 100],
+            dataLabels: { enabled: false },
+            plotOptions: {
+              candlestick: {
+                colors: {
+                  upward: "#fa0000",
+                  downward: "#4400ff",
+                },
+                wick: {
+                  useFillColor: true,
+                },
               },
             },
-            colors: ["white"],
-            stroke: { curve: "smooth" },
-            tooltip: {
-              y: { formatter: (value) => `$ ${value.toFixed(2)}` },
+            fill: {
+              colors: ["red", "blue"],
             },
           }}
         />
