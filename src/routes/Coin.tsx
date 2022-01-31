@@ -147,8 +147,8 @@ export interface PriceData {
 function Coin() {
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
-  const priceMatch = useRouteMatch("/:coinId/price");
-  const chartMatch = useRouteMatch("/:coinId/chart");
+  const priceMatch = useRouteMatch(`${process.env.PUBLIC_URL}/:coinId/price`);
+  const chartMatch = useRouteMatch(`${process.env.PUBLIC_URL}/:coinId/chart`);
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ["info", coinId],
     () => fetchCoinInfo(coinId)
@@ -184,7 +184,7 @@ function Coin() {
       ) : (
         <>
           <HomeContainer>
-            <Link to="/"> &larr; home</Link>
+            <Link to={`${process.env.PUBLIC_URL}/`}> &larr; home</Link>
           </HomeContainer>
           <Overview>
             <OverviewItem>
@@ -213,17 +213,21 @@ function Coin() {
           </Overview>
           <Tabs>
             <Tab isActive={chartMatch !== null}>
-              <Link to={`/${coinId}/chart`}>Chart</Link>
+              <Link to={`${process.env.PUBLIC_URL}/${coinId}/chart`}>
+                Chart
+              </Link>
             </Tab>
             <Tab isActive={priceMatch !== null}>
-              <Link to={`/${coinId}/price`}>Price</Link>
+              <Link to={`${process.env.PUBLIC_URL}/${coinId}/price`}>
+                Price
+              </Link>
             </Tab>
           </Tabs>
           <Switch>
-            <Route path={`/:coinId/price`}>
+            <Route path={`${process.env.PUBLIC_URL}/:coinId/price`}>
               <Price coinId={coinId} />
             </Route>
-            <Route path={`/:coinId/chart`}>
+            <Route path={`${process.env.PUBLIC_URL}/:coinId/chart`}>
               <Chart coinId={coinId} />
             </Route>
           </Switch>
