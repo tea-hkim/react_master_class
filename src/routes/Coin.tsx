@@ -22,9 +22,10 @@ const HomeContainer = styled.div`
   justify-content: end;
   text-transform: uppercase;
   a {
+    border: 1px solid white;
     padding: 10px 20px;
     border-radius: 10px;
-    background-color: white;
+    background-color: ${(props) => props.theme.cardBgColor};
     transition: color 0.2s ease-in;
     color: ${(props) => props.theme.textColor};
     &:hover {
@@ -48,9 +49,11 @@ const Tab = styled.span<{ isActive: boolean }>`
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 400;
-  background-color: ${(props) => (props.isActive ? "#58B19F" : "white")};
+  background-color: ${(props) =>
+    props.isActive ? "#58B19F" : props.theme.cardBgColor};
   padding: 7px 0px;
   border-radius: 10px;
+  border: 1px solid ${(props) => (props.isActive ? "#58B19F" : "white")};
 
   a {
     display: block;
@@ -64,7 +67,8 @@ const Tab = styled.span<{ isActive: boolean }>`
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: white;
+  background-color: ${(props) => props.theme.cardBgColor};
+  border: 1px solid white;
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -82,6 +86,7 @@ const OverviewItem = styled.div`
 `;
 const Description = styled.p`
   margin: 20px 0px;
+  color: ${(props) => props.theme.textColor};
 `;
 
 interface RouteParams {
