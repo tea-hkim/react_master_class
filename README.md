@@ -29,3 +29,7 @@
     3. Make Detail Page
     4. Use react-query
     5. Make Chart (use apexchart)
+
+### 4. To do list (use Recoil)
+
+    1. Setup Basic
