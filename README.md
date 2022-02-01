@@ -33,3 +33,7 @@
 ### 4. To do list (use Recoil)
 
     1. Setup Basic
+    2. react-form-hook
+        1. register
+        2. handleSubmit
+        3. formState
