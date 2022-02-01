@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 
 // function ToDoList() {
@@ -30,6 +30,7 @@ interface IForm {
   Eamil?: string;
   Password?: string;
   PasswordConfirm?: string;
+  extraError: string;
 }
 
 function ToDoList() {
@@ -37,14 +38,20 @@ function ToDoList() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<IForm>({
     defaultValues: {
       Eamil: "@naver.com",
     },
   });
 
-  const onValid = (data: any) => {
-    console.log(data);
+  const onValid = (data: IForm) => {
+    if (data.Password !== data.PasswordConfirm) {
+      setError("PasswordConfirm", {
+        message: "Password are not the same",
+      });
+      // setError("extraError", {message: "Server Error"})
+    }
   };
   return (
     <div>
@@ -52,7 +59,14 @@ function ToDoList() {
         style={{ display: "flex", flexDirection: "column" }}
         onSubmit={handleSubmit(onValid)}
       >
-        <input {...register("Eamil", { required: "write email" })} />
+        <input
+          {...register("Eamil", {
+            required: "write email",
+            validate: {
+              noNick: (value) => !value?.includes("nick") || "no nicos allowed",
+            },
+          })}
+        />
         <span>{errors?.Eamil?.message}</span>
         <input {...register("Password", { required: "write password " })} />
         <span>{errors?.Password?.message}</span>
