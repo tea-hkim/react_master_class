@@ -15,10 +15,12 @@ export const toDoSelector = selector({
   key: "toDoSelector",
   get: ({ get }) => {
     const toDos = get(toDoState);
-    return [
-      toDos.filter((toDo) => toDo.category === "ToDo"),
-      toDos.filter((toDo) => toDo.category === "Doing"),
-      toDos.filter((toDo) => toDo.category === "Done"),
-    ];
+    const category = get(categoryState);
+    return toDos.filter((toDo) => toDo.category === category);
   },
+});
+
+export const categoryState = atom({
+  key: "categoryState",
+  default: "ToDo",
 });
