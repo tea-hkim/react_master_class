@@ -1,83 +1,46 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-
-// function ToDoList() {
-//   const [toDo, setTodo] = useState("");
-//   const [toDos, setToDos] = useState([]);
-//   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
-//     const {
-//       currentTarget: { value },
-//     } = event;
-//     setTodo(value);
-//   };
-//   return (
-//     <div>
-//       <form>
-//         <h1>{toDo}</h1>
-//         <input
-//           type="text"
-//           placeholder="Write your to do list"
-//           value={toDo}
-//           onChange={handleChange}
-//         />
-//         <button>add</button>
-//       </form>
-//     </div>
-//   );
-// }
+import { atom, useRecoilState } from "recoil";
 
 interface IForm {
-  Eamil?: string;
-  Password?: string;
-  PasswordConfirm?: string;
-  extraError: string;
+  toDo: string;
+}
+interface IToDo {
+  text: string;
+  id: number;
+  category: "ToDo" | "Doing" | "Done";
 }
 
-function ToDoList() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm<IForm>({
-    defaultValues: {
-      Eamil: "@naver.com",
-    },
-  });
+const toDoState = atom<IToDo[]>({
+  key: "toDo",
+  default: [],
+});
 
-  const onValid = (data: IForm) => {
-    if (data.Password !== data.PasswordConfirm) {
-      setError("PasswordConfirm", {
-        message: "Password are not the same",
-      });
-      // setError("extraError", {message: "Server Error"})
-    }
+function ToDoList() {
+  const [toDoList, setToDoList] = useRecoilState(toDoState);
+  const { register, handleSubmit, setValue } = useForm<IForm>();
+  const onValid = ({ toDo }: IForm) => {
+    setToDoList((prev) => [
+      { text: toDo, id: Date.now(), category: "ToDo" },
+      ...prev,
+    ]);
+    setValue("toDo", "");
   };
   return (
     <div>
-      <form
-        style={{ display: "flex", flexDirection: "column" }}
-        onSubmit={handleSubmit(onValid)}
-      >
+      <h1>To Dos</h1>
+      <hr />
+      <form onSubmit={handleSubmit(onValid)}>
         <input
-          {...register("Eamil", {
-            required: "write email",
-            validate: {
-              noNick: (value) => !value?.includes("nick") || "no nicos allowed",
-            },
-          })}
+          {...register("toDo", { required: "Please write your to do list" })}
         />
-        <span>{errors?.Eamil?.message}</span>
-        <input {...register("Password", { required: "write password " })} />
-        <span>{errors?.Password?.message}</span>
-        <input
-          {...register("PasswordConfirm", {
-            required: "write password confirm",
-          })}
-        />
-        <span>{errors?.PasswordConfirm?.message}</span>
         <button>add</button>
       </form>
+      <ul>
+        {toDoList.map((toDo) => (
+          <li key={toDo.id}>{toDo.text}</li>
+        ))}
+      </ul>
     </div>
   );
 }

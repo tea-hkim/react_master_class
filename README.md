@@ -37,3 +37,7 @@
         1. register
         2. handleSubmit
         3. formState
+        4. setValue
+    3. Recoil
+        1. setRecoilState (very useful!)
+
