@@ -40,4 +40,5 @@
         4. setValue
     3. Recoil
         1. setRecoilState (very useful!)
-
+    4. Make Category button(todo|doing|done)
+    5. Make Category which has three section
