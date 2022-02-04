@@ -5,7 +5,6 @@ import { categoryState, toDoState } from "./../atoms";
 
 interface IForm {
   toDo: string;
-  error: string;
 }
 
 function CreateToDo() {

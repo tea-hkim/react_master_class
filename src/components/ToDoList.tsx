@@ -3,10 +3,11 @@ import CreateToDo from "./CreateToDo";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import Todo from "./Todo";
 import Category from "./Category";
-import { toDoState, toDoSelector } from "./../atoms";
+import { toDoState, toDoSelector, categoryListState } from "./../atoms";
 
 function ToDoList() {
   const toDos = useRecoilValue(toDoSelector);
+  const category = useRecoilValue(categoryListState);
   const setToDoList = useSetRecoilState(toDoState);
   useEffect(() => {
     const toDoList = localStorage.getItem("todo");
@@ -16,6 +17,7 @@ function ToDoList() {
       setToDoList(parsedTodoList);
     }
   }, []);
+  console.log(category);
   return (
     <div>
       <h1>To Dos</h1>

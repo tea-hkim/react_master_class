@@ -30,3 +30,8 @@ export const categoryState = atom<Categories>({
   key: "categoryState",
   default: Categories.ToDo,
 });
+
+export const categoryListState = atom({
+  key: "categoryList",
+  default: [Categories.ToDo, Categories.Doing, Categories.Done],
+});
