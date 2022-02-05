@@ -25,7 +25,7 @@ function CreateToDo() {
       <input
         {...register("toDo", { required: "Please write your to do list" })}
       />
-      <button>add</button>
+      <button>추가하기</button>
     </form>
   );
 }
