@@ -38,7 +38,7 @@ function Todo({ text, category, id }: IToDo) {
         </button>
       )}
       {category !== Categories.Doing && (
-        <button name={Categories.ToDo} onClick={handleClick}>
+        <button name={Categories.Doing} onClick={handleClick}>
           Doing
         </button>
       )}
