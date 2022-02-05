@@ -50,8 +50,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   body {
     font-family:'Source Sans Pro', sans-serif;
-    /* background-color: ${(props) => props.theme.bgColor}; */
-    background:linear-gradient(135deg,#e09,#d0e);
+    background-color: ${(props) => props.theme.bgColor};
     color : ${(props) => props.theme.textColor};
   }
   a {

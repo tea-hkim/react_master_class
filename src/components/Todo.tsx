@@ -8,6 +8,7 @@ function Todo({ text, category, id }: IToDo) {
     const {
       currentTarget: { name },
     } = event;
+    console.log(name);
     setToDos((oldToDos) => {
       const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
       const newToDo = { text, id, category: name as any };
@@ -20,6 +21,14 @@ function Todo({ text, category, id }: IToDo) {
       return newToDoList;
     });
   };
+  const handleDelete = () => {
+    setToDos((oldToDos) => {
+      const newToDoList = oldToDos.filter((toDo) => toDo.id !== id);
+      localStorage.setItem("todo", JSON.stringify(newToDoList));
+      return newToDoList;
+    });
+  };
+
   return (
     <li>
       <span>{text}</span>
@@ -38,6 +47,7 @@ function Todo({ text, category, id }: IToDo) {
           Done
         </button>
       )}
+      <button onClick={handleDelete}>삭제</button>
     </li>
   );
 }

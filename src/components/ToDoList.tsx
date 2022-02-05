@@ -3,31 +3,36 @@ import CreateToDo from "./CreateToDo";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import Todo from "./Todo";
 import Category from "./Category";
-import { toDoState, toDoSelector, categoryListState } from "./../atoms";
+import { toDoState, toDoSelector } from "./../atoms";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color
+`;
 
 function ToDoList() {
   const toDos = useRecoilValue(toDoSelector);
-  const category = useRecoilValue(categoryListState);
   const setToDoList = useSetRecoilState(toDoState);
   useEffect(() => {
     const toDoList = localStorage.getItem("todo");
     if (toDoList) {
-      console.log(toDoList);
       const parsedTodoList = JSON.parse(toDoList);
       setToDoList(parsedTodoList);
     }
   }, []);
-  console.log(category);
   return (
-    <div>
+    <Wrapper>
       <h1>To Dos</h1>
-      <hr />
       <Category />
       <CreateToDo />
       {toDos.map((toDo) => (
         <Todo key={toDo.id} {...toDo} />
       ))}
-    </div>
+    </Wrapper>
   );
 }
 
