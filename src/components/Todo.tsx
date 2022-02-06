@@ -1,9 +1,37 @@
 import React from "react";
-import { Categories, IToDo, toDoState } from "../atoms";
-import { useSetRecoilState } from "recoil";
+import { IToDo, toDoState } from "../atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import styled from "styled-components";
+import { categoryListState } from "./../atoms";
+
+const ToDoBox = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #55e6c1;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  width: 150px;
+  justify-content: space-around;
+  button {
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    &:hover {
+      background-color: #479aca;
+    }
+  }
+`;
 
 function Todo({ text, category, id }: IToDo) {
   const setToDos = useSetRecoilState(toDoState);
+  const categoryList = useRecoilValue(categoryListState);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const {
       currentTarget: { name },
@@ -30,25 +58,38 @@ function Todo({ text, category, id }: IToDo) {
   };
 
   return (
-    <li>
+    <ToDoBox>
       <span>{text}</span>
-      {category !== Categories.ToDo && (
-        <button name={Categories.ToDo} onClick={handleClick}>
-          To do
-        </button>
-      )}
-      {category !== Categories.Doing && (
-        <button name={Categories.Doing} onClick={handleClick}>
-          Doing
-        </button>
-      )}
-      {category !== Categories.Done && (
-        <button name={Categories.Done} onClick={handleClick}>
-          Done
-        </button>
-      )}
-      <button onClick={handleDelete}>삭제</button>
-    </li>
+      <ButtonContainer>
+        {category !== "ToDo" && (
+          <button name={"ToDo"} onClick={handleClick}>
+            To do
+          </button>
+        )}
+        {category !== "Doing" && (
+          <button name={"Doing"} onClick={handleClick}>
+            Doing
+          </button>
+        )}
+        {category !== "Done" && (
+          <button name={"Done"} onClick={handleClick}>
+            Done
+          </button>
+        )}
+        {categoryList?.map((cate: string) => {
+          if (category !== cate) {
+            return (
+              <button name={cate} onClick={handleClick}>
+                {cate}
+              </button>
+            );
+          }
+          return null;
+        })}
+
+        <button onClick={handleDelete}>삭제</button>
+      </ButtonContainer>
+    </ToDoBox>
   );
 }
 
